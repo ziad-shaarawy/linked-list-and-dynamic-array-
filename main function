@@ -1,0 +1,230 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<unistd.h>
+#include<time.h>
+struct birth  //structure for the birth of the student
+{
+    int year;
+    int month;
+    int day;
+};
+
+struct student
+{
+    char name[100];
+    int id;
+    struct birth date;
+    int score;
+};
+
+void gen_random(char *s, const int len)
+{
+    static const char alphanum[] ="ABCD EFG HI JKLMN OPQR STUVW XYZabc defghi jklmnopqr stuvwxyz";
+    for (int i = 0; i < len; ++i) {
+        s[i] = alphanum[rand() % (sizeof(alphanum) - 1)];
+    }
+    s[len] = 0;
+}
+
+
+
+
+
+//**********************the main function**********************
+int main ()
+{
+    printf("********************Student Names************************\n");
+    printf("student Names\t\tsec\t\tBN\n");
+    printf("aya tarek\t\t1\t\t41\nziad sayed\t\t2\t\t23\nnancy khaled\t\t4\t\t33\n");
+    printf("*********************************************************\n\n");
+
+    struct student *students_array=(struct student *)malloc(0);
+    clock_t start, end;
+    double cpu_time_used;
+    struct student st[17000];
+    for (int i=0; i<17000; i++)
+{
+    gen_random(st[i].name,20);
+    st[i].id=0;
+    st[i].date.day=0;
+    st[i].date.month=0;
+    st[i].date.year=0;
+    st[i].score=0;
+}
+for (int i=0; i<17000; i++)
+{
+    insert_end(st[i]);
+    students_array=insert_end_array(st[i],students_array);
+}
+for (int i=0; i<17000; i++)
+{
+    insert_end(st[i]);
+    students_array=insert_end_array(st[i],students_array);
+}
+for (int i=0; i<17000; i++)
+{
+    insert_end(st[i]);
+    students_array=insert_end_array(st[i],students_array);
+}
+
+printf("the size of the linked list is %d bytes\n",sizeof(struct node)*stud_num);
+printf("the size of the dyanmic array is %d bytes\n\n\n",sizeof(students_array)*stud_num);
+
+
+
+    while (1)
+    {
+        char clean_buffer[2];
+        struct student st;
+        int first_choice,sec_choice,index;
+        printf("please choose from the following options:\n\n");
+        printf("enter '1' to use the linked list\n");
+        printf("enter '2' to use the dynamic array\n");
+        printf("enter '3' to exit\n");
+        scanf("%d",&first_choice);
+        system("clear");
+        switch (first_choice)
+        {
+        case 1:
+            printf("please choose from the following options:\n\n");
+            printf("enter '1' to insert student at the beginning\n");
+            printf("enter '2' to insert student at the end\n");
+            printf("enter '3' to insert student at the middle\n");
+            printf("enter '4' to print all the student in the linked list\n");
+            scanf("%d",&sec_choice);
+            system("clear");
+            switch (sec_choice)
+            {
+            case 1:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                start = clock();
+                insert_beg(st);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("linked list insertion at beginning took %lf ms \n",cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 2:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                start = clock();
+                insert_end(st);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("linked list insertion at end took %lf ms \n",cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 3:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                printf("enter the index of the student: ");
+                scanf("%d",&index);
+                start = clock();
+                insert_mid(index,st);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("linked list insertion at position %d took %lf ms \n",index,cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 4:
+                print();
+                break;
+            }
+            break;
+        case 2:
+            printf("please choose from the following options:\n\n");
+            printf("enter '1' if to insert student at the beginning\n");
+            printf("enter '2' to insert student at the end\n");
+            printf("enter '3' to insert student at the middle\n");
+            printf("enter '4' to print all the student in the array\n");
+            scanf("%d",&sec_choice);
+            system("clear");
+            switch (sec_choice)
+            {
+            case 1:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                start = clock();
+                students_array=insert_beg_array(st,students_array);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("array insertion at beginning took %lf ms \n",cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 2:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                start = clock();
+                students_array=insert_end_array(st,students_array);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("array insertion at end took %lf ms \n",cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 3:
+                printf("enter the name of the student: ");
+                gets(clean_buffer);
+                gets(st.name);
+                printf("enter the id of the student: ");
+                scanf("%d",&st.id);
+                printf("enter the date of birth (i.e. day/month/year): ");
+                scanf("%d/%d/%d",&st.date.day,&st.date.month,&st.date.year);
+                printf("enter the score of the student: ");
+                scanf("%d,",&st.score);
+                printf("enter the index of the student: ");
+                scanf("%d",&index);
+                start = clock();
+                students_array=insert_mid_array(index,st,students_array);
+                end = clock();
+                cpu_time_used = ((double) (end - start))*1000/((double)(CLOCKS_PER_SEC));
+                printf("array insertion at position %d took %lf ms \n",index,cpu_time_used);
+                printf("the student is added successfully!\n\n");
+                break;
+            case 4:
+                print_array(students_array);
+                break;
+            }
+            break;
+        case 3:
+            exit(0);
+
+        }
+    }
+
+}
