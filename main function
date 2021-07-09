@@ -16,6 +16,64 @@ struct student
     struct birth date;
     int score;
 };
+//***********using dynamic array*************
+int element_size =sizeof(struct student);   //the size of one student
+int stud_num=0; //a counter that counts the number of students to be added
+
+
+
+struct student *insert_beg_array (struct student to_insert,struct student *all_students) //the function used to insert at the beginning of the array
+{
+    stud_num++; //increments the number of students
+    all_students=(struct student*)realloc(all_students,stud_num*element_size); //increases the size of the dynamic array by one student
+    int i;
+    for(i=stud_num-1;i!=0;i--)  //shifts the last element to the right then insert the new students at the beginning
+    {
+        all_students[i]=all_students[i-1];
+    }
+    all_students[0]=to_insert;
+    return all_students;
+}
+
+
+struct student * insert_end_array (struct student to_insert,struct student *all_students)   //the function used to insert at the beginning of the array
+{
+    stud_num++; //increments the number of students
+    all_students=(struct student*)realloc(all_students,stud_num*element_size);  //increases the size of the dynamic array by one student
+    all_students[stud_num-1]=to_insert; //inserts the new student at the end of the array
+    return all_students;
+}
+
+struct student * insert_mid_array (int index,struct student to_insert,struct student *all_students) //the function used to insert at any position in the array
+{
+    if (index>stud_num)
+    stud_num++; //increments the number of students
+    all_students=(struct student*)realloc(all_students,stud_num*element_size);   //increases the size of the dynamic array by one student
+    int i;
+    for(i=stud_num-1;i!=index;i--)  //shifts all the elements after the index to the right then insert the new student at the specified index
+    {
+        all_students[i]=all_students[i-1];
+    }
+    all_students[index]=to_insert;
+    return all_students;
+}
+
+void print_array(struct student *all_students)  //the function used to print the students in the array
+{
+    int i=0;
+    for(i;i<stud_num;i++)
+    {
+        printf("name of student is %s\n",all_students[i].name);
+        printf("id of student is %d\n",all_students[i].id);
+        printf("birth date of student is %d",all_students[i].date.day);
+        printf("/%d",all_students[i].date.month);
+        printf("/%d\n",all_students[i].date.year);
+        printf("score of student is %d\n\n",all_students[i].score);
+    }
+    if (i==0)
+        printf("no students in the array!\n\n");
+
+}
 
 void gen_random(char *s, const int len)
 {
