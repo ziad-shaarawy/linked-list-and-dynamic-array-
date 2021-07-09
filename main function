@@ -75,6 +75,100 @@ void print_array(struct student *all_students)  //the function used to print the
 
 }
 
+
+struct node     //structure for the linked list node
+{
+    struct student stu ;
+    struct node *next;
+};
+
+
+
+//**************using the linked list**********************
+struct node *head=NULL,*tail=NULL,*added=NULL; //initialization of the pointers used in the linked list
+
+void insert_beg(struct student st)  //the function used to insert at the beginning of the linked list
+{
+    added=(struct node *)malloc(sizeof(struct node));   //the pointer used to add a new node in the linked list
+    added->stu=st;
+    if(head==NULL)     //if the function is entered to create the first node
+    {
+        added->next=NULL;
+        head=tail=added;
+    }
+    else       //when the function is entered after creating the first node
+    {
+        added->next=head;
+        head=added;
+    }
+}
+
+
+
+void insert_end(struct student st)      //the function used to insert at the end of the linked list
+{
+    added=(struct node *)malloc(sizeof(struct node)); //the pointer used to add a new node in the linked list
+    added->stu=st;
+    if(head==NULL)     //if the function is entered to create the first node
+    {
+        added->next=NULL;
+        head=tail=added;
+    }
+    else       //when the function is entered after creating the first node
+    {
+        added->next=NULL;
+        tail->next=added;
+        tail=added;
+    }
+}
+
+
+void insert_mid(int index,struct student st)    //the function used to insert at any position of the linked list
+{
+  if(index==0)  //if the function is entered to insert at position  zero
+    insert_beg(st);
+  else
+  {
+    int i=0;
+    struct node *temp=head;
+    for(i;i<index-1;i++)
+    {
+        temp=temp->next;
+    }
+
+  if(temp==tail)    //if the function is used to insert at the end of the array
+    insert_end(st);
+  else
+  {
+    added=(struct node *)malloc(sizeof(struct node));  //the pointer used to add a new node in the linked list
+    added->stu=st;
+    added->next=temp->next;
+    temp->next=added;
+  }
+  }
+}
+
+
+void print() //print all the content of the linked list
+{
+    struct node *temp=head;
+    if (temp==NULL)
+        printf("no students in the linked list!\n\n");
+    while(temp!=NULL)
+    {
+        printf("name of student is %s\n",temp->stu.name);
+        printf("id of student is %d\n",temp->stu.id);
+        printf("birth date of student is %d",temp->stu.date.day);
+        printf("/%d",temp->stu.date.month);
+        printf("/%d\n",temp->stu.date.year);
+        printf("score of student is %d\n\n",temp->stu.score);
+        temp=temp->next;
+    }
+}
+
+
+
+
 void gen_random(char *s, const int len)
 {
     static const char alphanum[] ="ABCD EFG HI JKLMN OPQR STUVW XYZabc defghi jklmnopqr stuvwxyz";
